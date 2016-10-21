@@ -1,0 +1,10 @@
+D:\工具集\bin\ExcelConversion\Debug\[简乐]Excel转换工具.exe.config
+D:\工具集\bin\ExcelConversion\Debug\[简乐]Excel转换工具.exe
+D:\工具集\bin\ExcelConversion\Debug\[简乐]Excel转换工具.pdb
+D:\工具集\ExcelConversion\obj\x86\Debug\Interop.Microsoft.Office.Core.dll
+D:\工具集\ExcelConversion\obj\x86\Debug\ExcelConversion.csproj.ResolveComReference.cache
+D:\工具集\ExcelConversion\obj\x86\Debug\test.Form1.resources
+D:\工具集\ExcelConversion\obj\x86\Debug\test.Properties.Resources.resources
+D:\工具集\ExcelConversion\obj\x86\Debug\ExcelConversion.csproj.GenerateResource.Cache
+D:\工具集\ExcelConversion\obj\x86\Debug\[简乐]Excel转换工具.exe
+D:\工具集\ExcelConversion\obj\x86\Debug\[简乐]Excel转换工具.pdb

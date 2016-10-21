@@ -1,0 +1,8 @@
+D:\工具集\FileRename\obj\Release\FileRename.Properties.Resources.resources
+D:\工具集\FileRename\obj\Release\FileRename.csproj.GenerateResource.Cache
+D:\工具集\bin\FileRename\Release\【简乐】文件重命名工具.exe.config
+D:\工具集\bin\FileRename\Release\【简乐】文件重命名工具.exe
+D:\工具集\bin\FileRename\Release\【简乐】文件重命名工具.pdb
+D:\工具集\FileRename\obj\Release\FileRename.Form1.resources
+D:\工具集\FileRename\obj\Release\【简乐】文件重命名工具.exe
+D:\工具集\FileRename\obj\Release\【简乐】文件重命名工具.pdb

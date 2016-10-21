@@ -1,0 +1,17 @@
+D:\工具集\ExcelConversion\..bin\ExcelConversion\Release\[简乐]Excel转换工具.exe.config
+D:\工具集\ExcelConversion\..bin\ExcelConversion\Release\[简乐]Excel转换工具.exe
+D:\工具集\ExcelConversion\..bin\ExcelConversion\Release\[简乐]Excel转换工具.pdb
+D:\工具集\ExcelConversion\..bin\ExcelConversion\Release\Excel.dll
+D:\工具集\ExcelConversion\..bin\ExcelConversion\Release\ICSharpCode.SharpZipLib.dll
+D:\工具集\ExcelConversion\..bin\ExcelConversion\Release\Interop.ACTIVEXLib.dll
+D:\工具集\ExcelConversion\..bin\ExcelConversion\Release\Interop.Microsoft.Office.Core.dll
+D:\工具集\bin\ExcelConversion\Release\[简乐]Excel转换工具.exe.config
+D:\工具集\bin\ExcelConversion\Release\[简乐]Excel转换工具.exe
+D:\工具集\bin\ExcelConversion\Release\[简乐]Excel转换工具.pdb
+D:\工具集\ExcelConversion\obj\x86\Release\Interop.Microsoft.Office.Core.dll
+D:\工具集\ExcelConversion\obj\x86\Release\ExcelConversion.csproj.ResolveComReference.cache
+D:\工具集\ExcelConversion\obj\x86\Release\test.Form1.resources
+D:\工具集\ExcelConversion\obj\x86\Release\test.Properties.Resources.resources
+D:\工具集\ExcelConversion\obj\x86\Release\ExcelConversion.csproj.GenerateResource.Cache
+D:\工具集\ExcelConversion\obj\x86\Release\[简乐]Excel转换工具.exe
+D:\工具集\ExcelConversion\obj\x86\Release\[简乐]Excel转换工具.pdb

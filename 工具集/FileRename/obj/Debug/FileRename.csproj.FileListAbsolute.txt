@@ -1,0 +1,17 @@
+D:\工具集\FileRename\bin\Debug\FileRename.exe.config
+D:\工具集\FileRename\FileRename.exe.config
+D:\工具集\FileRename\$(SolutionDir)\bin\Debug\FileRename.exe.config
+D:\工具集\FileRename\$(SolutionDir)\bin\Debug\FileRename.exe
+D:\工具集\FileRename\$(SolutionDir)\bin\Debug\FileRename.pdb
+D:\工具集\FileRename\obj\Debug\FileRename.csprojResolveAssemblyReference.cache
+D:\工具集\FileRename\obj\Debug\FileRename.Properties.Resources.resources
+D:\工具集\FileRename\obj\Debug\FileRename.csproj.GenerateResource.Cache
+D:\工具集\bin\Debug\FileRename.exe.config
+D:\工具集\bin\Debug\FileRename.exe
+D:\工具集\bin\Debug\FileRename.pdb
+D:\工具集\FileRename\obj\Debug\FileRename.Form1.resources
+D:\工具集\bin\FileRename\Debug\【简乐】文件重命名工具.exe.config
+D:\工具集\bin\FileRename\Debug\【简乐】文件重命名工具.exe
+D:\工具集\bin\FileRename\Debug\【简乐】文件重命名工具.pdb
+D:\工具集\FileRename\obj\Debug\【简乐】文件重命名工具.exe
+D:\工具集\FileRename\obj\Debug\【简乐】文件重命名工具.pdb
