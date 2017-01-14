@@ -16,6 +16,7 @@ namespace test
         {
             InitializeComponent();
             textBox1.Text = GetAppConfig("source_dir");
+            textBox3.Text = GetAppConfig("target_dir");
             int x = Screen.PrimaryScreen.WorkingArea.Width / 2;
             int y = Screen.PrimaryScreen.WorkingArea.Height / 2;
             this.Location = new Point(0, 0);
@@ -55,8 +56,16 @@ namespace test
                                 listView1.Refresh();
                                 label2.Text = "正在转换:" + file;
                                 label2.Refresh();
-                                xsldata(file, "Sheet1");
+                                xsldata(file, textBox2.Text);
                                 converToCSV(i, targetDir, fileName);
+                                if (!string.IsNullOrEmpty(textBox3.Text))
+                                {
+                                    if (Directory.Exists(textBox3.Text))
+                                    {
+                                        string sp = targetDir + "\\" + fileName + ".csv"; ;
+                                        File.Copy(sp, textBox3.Text + "\\" + fileName + ".csv", true);
+                                    }
+                                }
                                 break;
                             }
 
@@ -88,8 +97,16 @@ namespace test
                             lvi.UseItemStyleForSubItems = false;
                             listView1.Items.Add(lvi);
                             label2.Text = "正在转换:" + files;
-                            xsldata(files,"Sheet1");
+                            xsldata(files, textBox2.Text);
                             converToCSV(i, targetDir, fileName);
+                            if (!string.IsNullOrEmpty(textBox3.Text))
+                            {
+                                if (Directory.Exists(textBox3.Text))
+                                {
+                                    string sp = targetDir + "\\" + fileName + ".csv"; ;
+                                    File.Copy(sp, textBox3.Text+"\\"+fileName+".csv", true);
+                                }
+                            }
                             break;
                         }
                         //listView1.EndUpdate();
@@ -120,6 +137,19 @@ namespace test
             {
                 textBox1.Text = this.folderBrowserDialog2.SelectedPath;
                 SetAppConfig("source_dir", textBox1.Text);
+            }
+            else
+            {
+                return;
+            }
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DialogResult result = this.folderBrowserDialog2.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                textBox3.Text = this.folderBrowserDialog2.SelectedPath;
+                SetAppConfig("target_dir", textBox3.Text);
             }
             else
             {
@@ -199,15 +229,41 @@ namespace test
             int row_no = 0;
             string output = dir + "\\" + fileName + ".csv";
             StreamWriter csv = new StreamWriter(@output, false, Encoding.UTF8);
+            int maxColumCount = 0;
+            List<string> columnNames = new List<string>();
+            for (int i = 0; i < result.Tables[ind].Columns.Count; i++)
+            {
+                var r = result.Tables[ind].Rows[row_no][i].ToString();
+                columnNames.Add(r);
+            }
+            columnNames.Reverse();
+            for(int i = 0;i < columnNames.Count;i ++)
+            {
+                if (string.IsNullOrEmpty(columnNames[i]))
+                {
+                    maxColumCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            maxColumCount = columnNames.Count - maxColumCount;
             while (row_no < result.Tables[ind].Rows.Count)
             {
+                string str = "";
                 List<string> feilds = new List<string>();
-                for (int i = 0; i < result.Tables[ind].Columns.Count; i++)
+                for (int i = 0; i < maxColumCount; i++)
                 {
+                    var colName = result.Tables[ind].Columns["TABLE_NAME"];
                     var r = result.Tables[ind].Rows[row_no][i].ToString();
+                    str += r;
                     feilds.Add(r);
                 }
-                WriteRecord(feilds, csv);
+                if (!string.IsNullOrEmpty(str))
+                {
+                    WriteRecord(feilds, csv);
+                }
                 row_no++;
 
             }

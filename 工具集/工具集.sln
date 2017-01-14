@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProbabilityModel", "Probabi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "技能编辑器", "技能编辑器\技能编辑器.csproj", "{E9DA9A1A-30A9-4D53-AD8A-18433CF42641}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSV2CS", "CSV2CS\CSV2CS.csproj", "{1E908941-2DF1-459D-8B31-27C70712D094}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,14 @@ Global
 		{E9DA9A1A-30A9-4D53-AD8A-18433CF42641}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E9DA9A1A-30A9-4D53-AD8A-18433CF42641}.Release|x86.ActiveCfg = Release|Any CPU
 		{E9DA9A1A-30A9-4D53-AD8A-18433CF42641}.Release|x86.Build.0 = Release|Any CPU
+		{1E908941-2DF1-459D-8B31-27C70712D094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E908941-2DF1-459D-8B31-27C70712D094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E908941-2DF1-459D-8B31-27C70712D094}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1E908941-2DF1-459D-8B31-27C70712D094}.Debug|x86.Build.0 = Debug|Any CPU
+		{1E908941-2DF1-459D-8B31-27C70712D094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E908941-2DF1-459D-8B31-27C70712D094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E908941-2DF1-459D-8B31-27C70712D094}.Release|x86.ActiveCfg = Release|Any CPU
+		{1E908941-2DF1-459D-8B31-27C70712D094}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

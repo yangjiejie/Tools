@@ -13,26 +13,55 @@ namespace FileRename
         {
             InitializeComponent();
             this.Location = new Point(0, 0);
+            comboBox1.SelectedIndex = 0;
         }
         //预览
-        void Preview()
+        void Preview(int type = 0)
         {
             listBox2.Items.Clear();
-            if (string.IsNullOrEmpty(textBox1.Text))
+            if (type == 0)
             {
-
-            }
-            else
-            {
-                for (int i = 0; i < AllFilePaths.Count; i++)
+                if (string.IsNullOrEmpty(textBox1.Text))
                 {
-                    string fileName = Path.GetFileNameWithoutExtension(AllFilePaths[i]);
-                    string modieName = textBox1.Text.Replace("*", i.ToString());
-                    string str = AllFilePaths[i].Replace(fileName, modieName);
-                    listBox2.Items.Add(str);
+
                 }
-                listBox2.Update();
+                else
+                {
+                    for (int i = 0; i < AllFilePaths.Count; i++)
+                    {
+                        string fileName = Path.GetFileNameWithoutExtension(AllFilePaths[i]);
+                        string modieName = textBox1.Text.Replace("*", i.ToString());
+                        string str = AllFilePaths[i].Replace(fileName, modieName);
+                        listBox2.Items.Add(str);
+                    }
+                    listBox2.Update();
+                }
             }
+            else if (type == 1)
+            {
+                    for (int i = 0; i < AllFilePaths.Count; i++)
+                    {
+                        string fileName = Path.GetFileName(AllFilePaths[i]);
+                        string dir = AllFilePaths[i].Replace(fileName, "");
+                        string str = textBox3.Text == null ? "": textBox3.Text;
+                        string _fileName = Path.GetFileNameWithoutExtension(AllFilePaths[i]);
+                        string modifiedName = "";
+                        if (comboBox1.SelectedIndex == 0)
+                        {
+                            //加前缀
+                            modifiedName = str + fileName;
+                        }
+                        else if (comboBox1.SelectedIndex == 1)
+                        {
+                            //加后缀
+                            modifiedName = fileName.Replace(_fileName, _fileName + str);
+                        }
+                        listBox2.Items.Add(dir+modifiedName);
+                    }
+                    listBox2.Update();
+                
+            }
+
         }
         //浏览
         private void button1_Click(object sender, EventArgs e)
@@ -137,5 +166,51 @@ namespace FileRename
             return fileName1.CompareTo(fileName2);
         }
 
+        //添加前缀
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (AllFilePaths.Count == 0)
+            {
+                MessageBox.Show("未选择文件!");
+                return;
+            }
+            for (int i = 0; i < AllFilePaths.Count; i++)
+            {
+                string fileName = Path.GetFileName(AllFilePaths[i]);
+                string dir = AllFilePaths[i].Replace(fileName, "");
+                string str = textBox3.Text;
+                string _fileName = Path.GetFileNameWithoutExtension(AllFilePaths[i]);
+                string modifiedName = "";
+                if (comboBox1.SelectedIndex == 0)
+                {
+                    //加前缀
+                    modifiedName = str + fileName;
+                }
+                else if(comboBox1.SelectedIndex == 1)
+                {
+                    //加后缀
+                    modifiedName = fileName.Replace(_fileName, _fileName + str);
+                }
+                if (!File.Exists(dir + modifiedName))
+                {
+                    File.Move(AllFilePaths[i], dir + modifiedName);
+                }
+                else
+                {
+                    MessageBox.Show("文件已存在,忽略!");
+                }
+            }
+            MessageBox.Show("操作成功!");
+        }
+        //预览1
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Preview();
+        }
+        //预览2
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Preview(1);
+        }
     }
 }
