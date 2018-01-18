@@ -16,12 +16,10 @@ D:\工具集\ExcelConversion\obj\x86\Release\ExcelConversion.csproj.GenerateReso
 D:\工具集\ExcelConversion\obj\x86\Release\[简乐]Excel转换工具.exe
 D:\工具集\ExcelConversion\obj\x86\Release\[简乐]Excel转换工具.pdb
 F:\Git_Reposites\Tools\工具集\bin\ExcelConversion\Release\[简乐]Excel转换工具.exe.config
-F:\Git_Reposites\Tools\工具集\ExcelConversion\obj\x86\Release\Interop.Microsoft.Office.Core.dll
-F:\Git_Reposites\Tools\工具集\ExcelConversion\obj\x86\Release\ExcelConversion.csproj.ResolveComReference.cache
-F:\Git_Reposites\Tools\工具集\ExcelConversion\obj\x86\Release\[简乐]Excel转换工具.exe
-F:\Git_Reposites\Tools\工具集\ExcelConversion\obj\x86\Release\[简乐]Excel转换工具.pdb
 F:\Git_Reposites\Tools\工具集\bin\ExcelConversion\Release\[简乐]Excel转换工具.exe
 F:\Git_Reposites\Tools\工具集\bin\ExcelConversion\Release\[简乐]Excel转换工具.pdb
 F:\Git_Reposites\Tools\工具集\ExcelConversion\obj\x86\Release\test.Form1.resources
 F:\Git_Reposites\Tools\工具集\ExcelConversion\obj\x86\Release\test.Properties.Resources.resources
 F:\Git_Reposites\Tools\工具集\ExcelConversion\obj\x86\Release\ExcelConversion.csproj.GenerateResource.Cache
+F:\Git_Reposites\Tools\工具集\ExcelConversion\obj\x86\Release\[简乐]Excel转换工具.exe
+F:\Git_Reposites\Tools\工具集\ExcelConversion\obj\x86\Release\[简乐]Excel转换工具.pdb

@@ -79,6 +79,7 @@
             this.textBox38 = new System.Windows.Forms.TextBox();
             this.textBox39 = new System.Windows.Forms.TextBox();
             this.textBox40 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -462,11 +463,23 @@
             this.textBox40.Size = new System.Drawing.Size(100, 21);
             this.textBox40.TabIndex = 49;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(688, 520);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 50;
+            this.button1.Text = "截屏";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnRecord);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1259, 559);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox40);
             this.Controls.Add(this.textBox39);
             this.Controls.Add(this.textBox38);
@@ -578,6 +591,7 @@
         private System.Windows.Forms.TextBox textBox38;
         private System.Windows.Forms.TextBox textBox39;
         private System.Windows.Forms.TextBox textBox40;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -7,25 +7,220 @@ using System.Windows.Forms;
 using System.IO;
 using System.Data.OleDb;
 using System.Xml;
-using System.Configuration;
+using Microsoft.Win32;
+using System.Threading;
+//using System.Timers;
 namespace test
 {
     public partial class Form1 : Form
     {
+        int maxColumCount = 0;
+        //System.Timers.Timer timer;
+        private delegate void SetInfo();
         public Form1()
         {
             InitializeComponent();
             textBox1.Text = GetAppConfig("source_dir");
             textBox3.Text = GetAppConfig("target_dir");
-            int x = Screen.PrimaryScreen.WorkingArea.Width / 2;
-            int y = Screen.PrimaryScreen.WorkingArea.Height / 2;
+            var IsIni = GetAppConfig("is_ini");
+            if(string.IsNullOrEmpty(IsIni))
+            {
+                Thread t = new Thread(new ThreadStart(IniSetting));
+                t.Start();
+                label5.Text = "正在为首次运行程序初始化设置,请勿关闭程序或进行其他操作...";
+            }
+            else
+            {
+                label5.Text = "";
+            }
             this.Location = new Point(0, 0);
+            if (textBox1.Text.EndsWith(".xlsx") || textBox1.Text.EndsWith(".xls"))
+            {
+                if (File.Exists(textBox1.Text))
+                {
+                    var list = GetSheetsName(textBox1.Text);
+                    list.Sort(this.Sort);
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        comboBox1.Items.Add(list[i]);
+                    }
+
+                }
+            }
+            else
+            {
+                comboBox1.Items.Add("Sheet1");
+            }
+            if(comboBox1.Items.Count > 0)
+            comboBox1.SelectedIndex = 0;
         }
-
+        void UpdateInfo()
+        {
+            this.label5.Text = "初始化完毕!";
+            SetAppConfig("is_ini","True");
+        }
+        
+        void IniSetting()
+        {
+            var node = Registry.LocalMachine.OpenSubKey("SOFTWARE", true);
+            SetRegistry(node);
+            node.Close();
+            if (this.InvokeRequired)
+            {
+                SetInfo si = new SetInfo(UpdateInfo);
+                this.Invoke(si);
+            }
+            else
+            {
+                this.label5.Text = "";
+            }
+        }
         DataSet result = new DataSet();
+        //转换成C#脚本文件
+        private void SaveToCS(object sender, EventArgs e)
+        {
 
+            if (string.IsNullOrEmpty(textBox1.Text))
+            {
+                MessageBox.Show("请选择配置表目录");
+                return;
+            }
+            try
+            {
+                if (Directory.Exists(textBox1.Text))
+                {
+                    var files = Directory.GetFiles(textBox1.Text, "*.*", SearchOption.AllDirectories);
+                    foreach (var file in files)
+                    {
+                        if (file.EndsWith(".xlsx") || file.EndsWith(".xls"))
+                        {
+                            string targetDir = "";
+                            targetDir = Path.GetFullPath(file);
+                            targetDir = targetDir.Replace(Path.GetFileName(file), "");
+                            targetDir = targetDir.Replace(textBox1.Text, textBox1.Text + "\\CS");
+                            if (!Directory.Exists(targetDir))
+                            {
+                                Directory.CreateDirectory(targetDir);
+                            }
+                            var sheetNames = getExcelData(file);
+                            string fileName = Path.GetFileNameWithoutExtension(file);
+                            //for (int i = 0; i < sheetNames.Count; i++)
+                            //{
+                            listView1.Items.Add(file);
+                            listView1.Refresh();
+                            label2.Text = "正在转换:" + file;
+                            label2.Refresh();
+
+                            var sheetName = comboBox1.SelectedItem.ToString();
+                            xsldata(file, sheetName);
+                            converToCS(0, targetDir, fileName);
+                        }
+                    }
+                    MessageBox.Show("生成完毕!");
+                }
+                else if (File.Exists(textBox1.Text))
+                {
+                    if (textBox1.Text.EndsWith(".xlsx") || textBox1.Text.EndsWith(".xls"))
+                    {
+                        var files = Path.GetFullPath(textBox1.Text);
+                        string targetDir = "";
+                        targetDir = Path.GetFullPath(files);
+                        targetDir = targetDir.Replace(Path.GetFileName(files), "");
+                        targetDir = targetDir.Replace(textBox1.Text, textBox1.Text + "\\CSV");
+                        if (!Directory.Exists(targetDir))
+                        {
+                            Directory.CreateDirectory(targetDir);
+                        }
+
+                        //listView1.BeginUpdate();
+                        var sheetNames = getExcelData(files);
+                        string fileName = Path.GetFileNameWithoutExtension(files);
+                        //for (int i = 0; i < sheetNames.Count; i++)
+                        //{
+                        ListViewItem lvi = new ListViewItem();
+                        lvi.Text = files;
+                        lvi.UseItemStyleForSubItems = false;
+                        listView1.Items.Add(lvi);
+                        label2.Text = "正在转换:" + files;
+                        //textBox2.Text = sheetNames[0];
+                        var sheetName = comboBox1.SelectedItem.ToString();
+                        xsldata(files, sheetName);
+                        converToCS(0, targetDir, fileName);
+
+                        //    break;
+                        //}
+                        //listView1.EndUpdate();
+                        MessageBox.Show("生成完毕");
+                    }
+                    else
+                    {
+                        MessageBox.Show("不支持文件格式!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("文件路径或文件不存在!");
+                    return;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+      
+        public void ExportToExcel(DataTable dt, string path)
+        {
+            string result = string.Empty;
+            try
+            {
+                // 实例化流对象，以特定的编码向流中写入字符。  
+                StreamWriter sw = new StreamWriter(path, false, Encoding.GetEncoding("gb2312"));
+
+                StringBuilder sb = new StringBuilder();
+                for (int k = 0; k < dt.Columns.Count; k++)
+                {
+                    // 添加列名称  
+                    sb.Append(dt.Columns[k].ColumnName.ToString() + "\t");
+                }
+                sb.Append(Environment.NewLine);
+                // 添加行数据  
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DataRow row = dt.Rows[i];
+                    for (int j = 0; j < dt.Columns.Count; j++)
+                    {
+                        // 根据列数追加行数据  
+                        sb.Append(row[j].ToString() + "\t");
+                    }
+                    sb.Append(Environment.NewLine);
+                }
+                sw.Write(sb.ToString());
+                sw.Flush();
+                sw.Close();
+                sw.Dispose();
+
+                // 导出成功后打开  
+                //System.Diagnostics.Process.Start(path);  
+            }
+            catch (Exception)
+            {
+                result = "请保存或关闭可能已打开的Excel文件";
+            }
+            finally
+            {
+                dt.Dispose();
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
+            var IsIni = GetAppConfig("is_ini");
+            if (string.IsNullOrEmpty(IsIni))
+            {
+                MessageBox.Show(this, "尚未初始化程序设置!");
+                return;
+            }
             if (string.IsNullOrEmpty(textBox1.Text))
             {
                 MessageBox.Show("请选择配置表目录");
@@ -50,24 +245,26 @@ namespace test
                             }
                             var sheetNames = getExcelData(file);
                             string fileName = Path.GetFileNameWithoutExtension(file);
-                            for (int i = 0; i < sheetNames.Count; i++)
+                            //for (int i = 0; i < sheetNames.Count; i++)
+                            //{
+                            listView1.Items.Add(file);
+                            listView1.Refresh();
+                            label2.Text = "正在转换:" + file;
+                            label2.Refresh();
+
+                            var sheetName = comboBox1.SelectedItem.ToString();
+                            xsldata(file, sheetName);
+                            converToCSV(0, targetDir, fileName);
+                            if (!string.IsNullOrEmpty(textBox3.Text))
                             {
-                                listView1.Items.Add(file);
-                                listView1.Refresh();
-                                label2.Text = "正在转换:" + file;
-                                label2.Refresh();
-                                xsldata(file, textBox2.Text);
-                                converToCSV(i, targetDir, fileName);
-                                if (!string.IsNullOrEmpty(textBox3.Text))
+                                if (Directory.Exists(textBox3.Text))
                                 {
-                                    if (Directory.Exists(textBox3.Text))
-                                    {
-                                        string sp = targetDir + "\\" + fileName + ".csv"; ;
-                                        File.Copy(sp, textBox3.Text + "\\" + fileName + ".csv", true);
-                                    }
+                                    string sp = targetDir + "\\" + fileName + ".csv"; ;
+                                    File.Copy(sp, textBox3.Text + "\\" + fileName + ".csv", true);
                                 }
-                                break;
                             }
+                            //    break;
+                            //}
 
                         }
                     }
@@ -90,25 +287,27 @@ namespace test
                         //listView1.BeginUpdate();
                         var sheetNames = getExcelData(files);
                         string fileName = Path.GetFileNameWithoutExtension(files);
-                        for (int i = 0; i < sheetNames.Count; i++)
+                        //for (int i = 0; i < sheetNames.Count; i++)
+                        //{
+                        ListViewItem lvi = new ListViewItem();
+                        lvi.Text = files;
+                        lvi.UseItemStyleForSubItems = false;
+                        listView1.Items.Add(lvi);
+                        label2.Text = "正在转换:" + files;
+                        //textBox2.Text = sheetNames[0];
+                        var sheetName = comboBox1.SelectedItem.ToString();
+                        xsldata(files, sheetName);
+                        converToCSV(0, targetDir, fileName);
+                        if (!string.IsNullOrEmpty(textBox3.Text))
                         {
-                            ListViewItem lvi = new ListViewItem();
-                            lvi.Text = files;
-                            lvi.UseItemStyleForSubItems = false;
-                            listView1.Items.Add(lvi);
-                            label2.Text = "正在转换:" + files;
-                            xsldata(files, textBox2.Text);
-                            converToCSV(i, targetDir, fileName);
-                            if (!string.IsNullOrEmpty(textBox3.Text))
+                            if (Directory.Exists(textBox3.Text))
                             {
-                                if (Directory.Exists(textBox3.Text))
-                                {
-                                    string sp = targetDir + "\\" + fileName + ".csv"; ;
-                                    File.Copy(sp, textBox3.Text+"\\"+fileName+".csv", true);
-                                }
+                                string sp = targetDir + "\\" + fileName + ".csv"; ;
+                                File.Copy(sp, textBox3.Text + "\\" + fileName + ".csv", true);
                             }
-                            break;
                         }
+                        //    break;
+                        //}
                         //listView1.EndUpdate();
                         MessageBox.Show("转换完成");
                     }
@@ -159,31 +358,8 @@ namespace test
         private List<string> getExcelData(string file)
         {
             return GetSheetsName(file);
-            // if (file.EndsWith(".xlsx"))
-            // {
-            //     // Reading from a binary Excel file (format; *.xlsx)
-            //     //FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read);
-            //     //IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-            //     //result = excelReader.AsDataSet();
-            //     //excelReader.Close();
-            //   
-            // }
-            //
-            // if (file.EndsWith(".xls"))
-            // {
-            //     // Reading from a binary Excel file ('97-2003 format; *.xls)
-            //     FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read);
-            //     IExcelDataReader excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
-            //     result = excelReader.AsDataSet();
-            //     excelReader.Close();
-            // }
-            //
-            // List<string> items = new List<string>();
-            // for (int i = 0; i < result.Tables.Count; i++)
-            //     items.Add(result.Tables[i].TableName.ToString());         
-            // return items;
-
         }
+
         public static List<string> GetSheetsName(string pExcelAddress)
         {
             try
@@ -197,9 +373,8 @@ namespace test
 
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        vSheetsName.Add(dt.Rows[i][2].ToString().Replace("$", ""));
-                        //只转Sheet1
-                        break;
+                        string sn = dt.Rows[i][2].ToString().Replace("$", "");
+                        vSheetsName.Add(sn);
                     }
                     return vSheetsName;
                 }
@@ -211,25 +386,27 @@ namespace test
         }
         private DataSet xsldata(string filepath, string fileName)
         {
-            string strCon = "Provider=Microsoft.Ace.OleDb.12.0;" + "data source=" + filepath + ";Extended Properties='Excel 12.0; HDR=No; IMEX=1'";
+            string strCon = "Provider=Microsoft.Ace.OleDb.12.0;" + "data source=" + filepath + ";Extended Properties='Excel 8.0; HDR=No; IMEX=1'";
             OleDbConnection Conn = new OleDbConnection(strCon);
             Conn.Open();
             string strCom = "select * from [" + fileName + "$]";
-            using (OleDbDataAdapter myCommand = new OleDbDataAdapter(strCom, Conn))
-            {
-                result = new DataSet();
-                myCommand.Fill(result);
-            }
+            strCom = strCom.ToLower();
+            OleDbCommand cmd = new OleDbCommand(strCom, Conn);
+            OleDbDataAdapter adapter = new OleDbDataAdapter();
+            adapter.SelectCommand = cmd;
+            result = new DataSet();
+            adapter.Fill(result);
+
             Conn.Close();
             return result;
         }
-        private void converToCSV(int ind, string dir, string fileName)
+        private void converToCS(int ind, string dir, string fileName)
         {
             StringBuilder sb = new StringBuilder();
             int row_no = 0;
-            string output = dir + "\\" + fileName + ".csv";
-            StreamWriter csv = new StreamWriter(@output, false, Encoding.UTF8);
-            int maxColumCount = 0;
+            string output = dir + "\\table_" + fileName + ".cs";
+            StreamWriter cs = new StreamWriter(@output, false, Encoding.UTF8);
+            maxColumCount = 0;
             List<string> columnNames = new List<string>();
             for (int i = 0; i < result.Tables[ind].Columns.Count; i++)
             {
@@ -237,7 +414,122 @@ namespace test
                 columnNames.Add(r);
             }
             columnNames.Reverse();
-            for(int i = 0;i < columnNames.Count;i ++)
+            for (int i = 0; i < columnNames.Count; i++)
+            {
+                if (string.IsNullOrEmpty(columnNames[i]))
+                {
+                    maxColumCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            maxColumCount = columnNames.Count - maxColumCount;
+            Dictionary<int, List<string>> data = new Dictionary<int, List<string>>();
+            while (row_no < result.Tables[ind].Rows.Count)
+            {
+                List<string> feilds = new List<string>();
+                for (int i = 0; i < maxColumCount; i++)
+                {
+                    var r = result.Tables[ind].Rows[row_no][i];
+                    feilds.Add(Convert.ToString(r));
+                }
+                data.Add(row_no, feilds);
+                row_no++;
+                if (row_no >= 3)
+                    break;
+            }
+            cs.Close();
+
+            string info = "//该代码由工具生成。\n" + "//" + string.Format("{0:f}", DateTime.Now) + "\n[Serializable]\n";
+            var fieldNames = data[0];//字段名
+            var Comments = data[1];//注释
+            var fieldType = data[2];//字段类型
+            if (fieldNames.Count == fieldType.Count)
+            {
+                string nameSp = "using System;\nusing System.Collections.Generic;\n";
+                string classBegin = "public class table_" + fileName + "\n{";
+                string ESOFun = "\n    public void enScriptObject()\n    {\n\n    }";
+                string DSOFun = "\n    public void deScriptObject()\n    {\n\n    }";
+                string classEnd = "\n}";
+                string body = "\n";
+                for (int m = 0; m < fieldNames.Count; m++)
+                {
+                    string comm = m < Comments.Count ? "//" + Comments[m] + "\n" : "\n";
+                    if (comm == "//\n")
+                        comm = "\n";
+                    switch (fieldType[m])
+                    {
+                        case "int":
+                            {
+
+                                body += "    public int " + fieldNames[m] + ";" + comm;
+
+                            }
+                            break;
+                        case "string":
+                            {
+                                int type = 0;
+                                if (type == 0)
+                                {
+                                    body += "    public string " + fieldNames[m] + ";" + comm;
+                                }
+                            }
+                            break;
+                        case "float":
+                            {
+                                body += "    public float " + fieldNames[m] + ";" + comm;
+                            }
+                            break;
+                        case "json":
+                            {
+                                body += "    public string " + fieldNames[m] + ";" + comm;
+                            }
+                            break;
+                        default:
+                            {
+                                if (!string.IsNullOrEmpty(fieldNames[m]))
+                                {
+                                    body += "    public int " + fieldNames[m] + ";" + comm;
+                                }
+                            }
+                            break;
+                    }
+                }
+                string str = "";
+                if (false)
+                {
+                    str = nameSp + info + classBegin + body + classEnd;
+                }
+                else
+                {
+                    str = nameSp + info + classBegin + body + ESOFun+DSOFun+ classEnd;
+                }
+
+                byte[] classContent = Encoding.UTF8.GetBytes(str);
+                using (FileStream fsWrite = new FileStream(output, FileMode.OpenOrCreate))
+                {
+                    fsWrite.Write(classContent, 0, classContent.Length);
+                }
+            }
+
+        }
+        private void converToCSV(int ind, string dir, string fileName)
+        {
+            StringBuilder sb = new StringBuilder();
+            int row_no = 0;
+            string output = dir + "\\" + fileName + ".csv";
+            StreamWriter csv = new StreamWriter(@output, false, Encoding.UTF8);
+            maxColumCount = 0;
+            List<string> columnNames = new List<string>();
+            for (int i = 0; i < result.Tables[ind].Columns.Count; i++)
+            {
+                var r = result.Tables[ind].Rows[row_no][i].ToString();
+                columnNames.Add(r);
+            }
+            columnNames.Reverse();
+            for (int i = 0; i < columnNames.Count; i++)
             {
                 if (string.IsNullOrEmpty(columnNames[i]))
                 {
@@ -256,9 +548,9 @@ namespace test
                 for (int i = 0; i < maxColumCount; i++)
                 {
                     var colName = result.Tables[ind].Columns["TABLE_NAME"];
-                    var r = result.Tables[ind].Rows[row_no][i].ToString();
-                    str += r;
-                    feilds.Add(r);
+                    var r = result.Tables[ind].Rows[row_no][i];
+                    str += Convert.ToString(r);
+                    feilds.Add(Convert.ToString(r));
                 }
                 if (!string.IsNullOrEmpty(str))
                 {
@@ -303,14 +595,45 @@ namespace test
         }
         private void Form1_DragDrop(object sender, DragEventArgs e)
         {
-            string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+            string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
             // MessageBox.Show(path);
             textBox1.Text = path;
             SetAppConfig("source_dir", textBox1.Text);
+            comboBox1.Items.Clear();
+            if (textBox1.Text.EndsWith(".xlsx") || textBox1.Text.EndsWith(".xls"))
+            {
+                var list = GetSheetsName(path);
+                list.Sort(this.Sort);
+                for (int i = 0; i < list.Count; i++)
+                    comboBox1.Items.Add(list[i]);
+            }
+            else
+            {
+                comboBox1.Items.Add("Sheet1");
+            }
+            comboBox1.SelectedIndex = 0;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+        //排序下拉列表
+        int Sort(string a,string b)
+        {
+            bool b1 = a.StartsWith("Sheet");
+            bool b2 = b.StartsWith("Sheet");
+            if(b1 == b2)
+            {
+                return a.CompareTo(b);
+            }
+            else
+            {
+                if (a.StartsWith("Sheet"))
+                    return -1;
+                if (b.StartsWith("Sheet"))
+                    return 1;
+            }
+            return 0;
         }
         //读写配置
         public static void SetAppConfig(string appKey, string appValue)
@@ -368,6 +691,40 @@ namespace test
         void CSV2EXCEL()
         {
 
+        }
+        //设置注册表，防止单元格超255字符时产生截断的问题
+       static void SetRegistry(RegistryKey node)
+        {
+            var subValues = node.GetValueNames();
+            List<string> tmp = new List<string>(subValues);
+            if (tmp.Contains("TypeGuessRows"))
+            {
+                node.SetValue("TypeGuessRows", 0, RegistryValueKind.DWord);
+                node.Flush();
+            }
+
+            var subKeys = node.GetSubKeyNames();
+            for (int i = 0; i < subKeys.Length; i++)
+            {
+                try
+                {
+                    var next = node.OpenSubKey(subKeys[i], false);
+                    subValues = next.GetValueNames();
+                    tmp = new List<string>(subValues);
+                    if (tmp.Contains("TypeGuessRows"))
+                    {
+                        next = node.OpenSubKey(subKeys[i], true);
+                    }
+                    SetRegistry(next);
+
+                }
+                catch (Exception e)
+                {
+                    continue;
+                }
+
+            }
+            node.Close();
         }
     }
 }
