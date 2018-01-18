@@ -1,0 +1,14 @@
+F:\Git_Reposites\Tools\工具集\SensitiveNameCheck\bin\Release\SensitiveNameCheck.exe.config
+F:\Git_Reposites\Tools\工具集\SensitiveNameCheck\bin\Release\SensitiveNameCheck.exe
+F:\Git_Reposites\Tools\工具集\SensitiveNameCheck\bin\Release\SensitiveNameCheck.pdb
+F:\Git_Reposites\Tools\工具集\SensitiveNameCheck\obj\Release\SensitiveNameCheck.csprojResolveAssemblyReference.cache
+F:\Git_Reposites\Tools\工具集\SensitiveNameCheck\obj\Release\SensitiveNameCheck.Properties.Resources.resources
+F:\Git_Reposites\Tools\工具集\SensitiveNameCheck\obj\Release\SensitiveNameCheck.csproj.GenerateResource.Cache
+F:\Git_Reposites\Tools\工具集\SensitiveNameCheck\obj\Release\SensitiveNameCheck.NameCheckForm.resources
+F:\Git_Reposites\Tools\工具集\bin\SensitiveNameCheck\SensitiveNameCheck.exe.config
+F:\Git_Reposites\Tools\工具集\bin\ExcelConversion\Release\SensitiveNameCheck.exe.config
+F:\Git_Reposites\Tools\工具集\bin\SensitiveNameCheck\Release\[简乐]敏感字检测工具.exe.config
+F:\Git_Reposites\Tools\工具集\bin\SensitiveNameCheck\Release\[简乐]敏感字检测工具.exe
+F:\Git_Reposites\Tools\工具集\bin\SensitiveNameCheck\Release\[简乐]敏感字检测工具.pdb
+F:\Git_Reposites\Tools\工具集\SensitiveNameCheck\obj\Release\[简乐]敏感字检测工具.exe
+F:\Git_Reposites\Tools\工具集\SensitiveNameCheck\obj\Release\[简乐]敏感字检测工具.pdb
