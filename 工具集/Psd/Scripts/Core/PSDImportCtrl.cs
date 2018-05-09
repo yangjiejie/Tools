@@ -182,7 +182,7 @@ namespace Psd
         {
             if (layers != null)
             {
-                for (int layerIndex = 0; layerIndex < layers.Length; layerIndex++)
+                for (var layerIndex = 0; layerIndex < layers.Length; layerIndex++)
                 {
                     DrawLayer(layers[layerIndex], parent);
                 }
