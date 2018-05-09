@@ -20,3 +20,6 @@ F:\Git_Reposites\Tools\工具集\ExcelConversion\obj\x86\Debug\ExcelConversion.c
 I:\Git_Reposite\Tools\工具集\bin\ExcelConversion\Debug\[简乐]Excel转换工具.exe.config
 I:\Git_Reposite\Tools\工具集\ExcelConversion\obj\x86\Debug\[简乐]Excel转换工具.exe
 I:\Git_Reposite\Tools\工具集\ExcelConversion\obj\x86\Debug\[简乐]Excel转换工具.pdb
+E:\Git_Reposite\Tools\工具集\bin\ExcelConversion\Debug\[简乐]Excel转换工具.exe.config
+E:\Git_Reposite\Tools\工具集\ExcelConversion\obj\x86\Debug\[简乐]Excel转换工具.exe
+E:\Git_Reposite\Tools\工具集\ExcelConversion\obj\x86\Debug\[简乐]Excel转换工具.pdb
