@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14657E4C-EEA3-425F-9CF5-4193548E482E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Psd</RootNamespace>
+    <AssemblyName>Psd</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Psd\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Psd\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEditor">
+      <HintPath>lib\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>lib\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>lib\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\Const\PSDImporterConst.cs" />
+    <Compile Include="Scripts\Core\PSDImportCtrl.cs" />
+    <Compile Include="Scripts\Core\PSDImportMenu.cs" />
+    <Compile Include="Scripts\Core\PSDImportUtility.cs" />
+    <Compile Include="Scripts\Core\Image.cs" />
+    <Compile Include="Scripts\Core\Layer.cs" />
+    <Compile Include="Scripts\Core\Position.cs" />
+    <Compile Include="Scripts\Core\PsdPostImport.cs" />
+    <Compile Include="Scripts\Core\PSDUI.cs" />
+    <Compile Include="Scripts\Core\Size.cs" />
+    <Compile Include="Scripts\Effects\MirrorEditor.cs" />
+    <Compile Include="Scripts\Enum\ImageSource.cs" />
+    <Compile Include="Scripts\Enum\ImageType.cs" />
+    <Compile Include="Scripts\Enum\LayerType.cs" />
+    <Compile Include="Scripts\LayerImport\HalfSpriteImport.cs" />
+    <Compile Include="Scripts\LayerImport\SliceSpriteImport.cs" />
+    <Compile Include="Scripts\LayerImport\SpriteImport.cs" />
+    <Compile Include="Scripts\LayerImport\TextImport.cs" />
+    <Compile Include="Scripts\LayerImport\TextureImport.cs" />
+    <Compile Include="Scripts\Interface\IImageImport.cs" />
+    <Compile Include="Scripts\Interface\ILayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\ButtonLayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\DefultLayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\DropDownLayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\GridLayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\GroupLayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\InputFieldLayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\LayoutElementLayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\PanelLayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\ScrollBarLayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\ScrollViewLayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\SliderLayerImport.cs" />
+    <Compile Include="Scripts\LayerImport\ToggleLayerImport.cs" />
+    <Compile Include="Scripts\Mirror\ListPool.cs" />
+    <Compile Include="Scripts\Mirror\Mirror.cs" />
+    <Compile Include="Scripts\Mirror\Pool.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

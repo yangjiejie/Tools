@@ -1,0 +1,12 @@
+F:\Git_Reposites\Tools\工具集\Psd\obj\Debug\Psd.Properties.Resources.resources
+F:\Git_Reposites\Tools\工具集\Psd\obj\Debug\Psd.csproj.GenerateResource.Cache
+F:\Git_Reposites\Tools\工具集\Psd\bin\Debug\Psd.dll
+F:\Git_Reposites\Tools\工具集\Psd\bin\Debug\Psd.pdb
+F:\Git_Reposites\Tools\工具集\Psd\bin\Debug\UnityEditor.dll
+F:\Git_Reposites\Tools\工具集\Psd\bin\Debug\UnityEngine.dll
+F:\Git_Reposites\Tools\工具集\Psd\bin\Debug\UnityEngine.UI.dll
+F:\Git_Reposites\Tools\工具集\Psd\obj\Debug\Psd.dll
+F:\Git_Reposites\Tools\工具集\Psd\obj\Debug\Psd.pdb
+F:\Git_Reposites\Tools\工具集\bin\Psd\Debug\Psd.dll
+F:\Git_Reposites\Tools\工具集\bin\Psd\Debug\Psd.pdb
+F:\Git_Reposites\Tools\工具集\Psd\obj\Debug\Psd.csprojResolveAssemblyReference.cache
