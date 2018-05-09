@@ -46,7 +46,6 @@ namespace Psd
             this.RecordScrFiles(xmlFilePath);//记录导入文件名及路径
             InitDataAndPath(xmlFilePath);//序列化
             InitCanvas();
-            //LoadLayers();
             MoveLayers();
             this.RecordSysFiles();
             InitDrawers();
