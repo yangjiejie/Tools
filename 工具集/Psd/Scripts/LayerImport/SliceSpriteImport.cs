@@ -34,7 +34,7 @@ namespace Psd
             Sprite sprite =PSDImportUtility.LoadAssetAtPath<Sprite>(image) as Sprite;
 
             pic.sprite = sprite;
-            pic.type = UnityEngine.UI.Image.Type.Sliced;
+            pic.type = Image.Type.Sliced;
 
             //RectTransform rectTransform = pic.GetComponent<RectTransform>();
             rectTransform.sizeDelta = new Vector2(image.size.width, image.size.height);

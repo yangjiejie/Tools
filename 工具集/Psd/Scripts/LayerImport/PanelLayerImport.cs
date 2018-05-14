@@ -30,7 +30,7 @@ namespace Psd
 
                 if (image.name.ToLower().Contains("background"))
                 {
-                    string assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
+                    string assetPath = PSDImportCtrl.Instance.GetFilePath(image);// PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
                     Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
                     panel.sprite = sprite;
 

@@ -12,7 +12,7 @@ namespace Psd
 {
     public class UIFile
     {
-        public string System; //系统路径相对路径Assets/
+        public string System; //系统路径相对路径Assets/...
         //根据命名规则命名后的文件名
         public List<string> Atlas = new List<string>();
         public List<string> Lantex = new List<string>();
@@ -79,7 +79,7 @@ namespace Psd
         private const string configFilePath = "Assets/Psd/version.txt";
         private bool _needSavePrefab = false;
 
-        [MenuItem("PSD/Import", false, 0)]
+        [MenuItem("PSD/导入", false, 0)]
         static void Open()
         {
             if (Instance == null)

@@ -16,15 +16,10 @@ namespace Psd
         }
         public void DrawLayer(Layer layer, GameObject parent)
         {
-            //UnityEngine.UI.Slider temp = AssetDatabase.LoadAssetAtPath(PSDImporterConst.PREFAB_PATH_SLIDER, typeof(UnityEngine.UI.Slider)) as UnityEngine.UI.Slider;
-            UnityEngine.UI.Slider slider = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Slider>(PSDImporterConst.ASSET_PATH_SLIDER, layer.name, parent); //GameObject.Instantiate(temp) as UnityEngine.UI.Slider;
-
+            Slider slider = PSDImportUtility.LoadAndInstant<Slider>(PSDImporterConst.ASSET_PATH_SLIDER, layer.name, parent); 
             RectTransform rectTransform = slider.GetComponent<RectTransform>();
             rectTransform.sizeDelta = new Vector2(layer.size.width, layer.size.height);
             rectTransform.anchoredPosition = new Vector2(layer.position.x, layer.position.y);
-
-            //slider.transform.SetParent(parent.transform, true); //parent = parent.transform;
-
             PosLoader posloader = slider.gameObject.AddComponent<PosLoader>();
             posloader.worldPos = rectTransform.position;
 
@@ -50,13 +45,13 @@ namespace Psd
             for (int i = 0; i < layer.layers.Length; i++)
             {
                 PSImage image = layer.layers[i].image;
-                string assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
-                Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
+                var p = PSDImportCtrl.Instance.GetFilePath(image);
+                Sprite sprite = AssetDatabase.LoadAssetAtPath(p,typeof(Sprite)) as Sprite;
 
                 if (image.name.ToLower().Contains("bg"))
                 {
                     var bgRect = slider.transform.Find("Background").GetComponent<RectTransform>();
-                    var bgImage = bgRect.GetComponent<UnityEngine.UI.Image>();
+                    var bgImage = bgRect.GetComponent<Image>();
                     if (image.imageType != ImageType.SliceImage)
                     {
                         bgImage.type = Image.Type.Simple;
@@ -66,7 +61,7 @@ namespace Psd
                 }
                 else if (image.name.ToLower().Contains("fill"))
                 {
-                    var fillImage = slider.fillRect.GetComponent<UnityEngine.UI.Image>();
+                    var fillImage = slider.fillRect.GetComponent<Image>();
                     if (image.imageType != ImageType.SliceImage)
                     {
                         fillImage.type = Image.Type.Simple;
@@ -79,7 +74,7 @@ namespace Psd
                 else if (image.name.ToLower().Contains("handle"))       //默认没有handle
                 {
                     var handleRectTrans = slider.transform.Find("Handle Slide Area/Handle").GetComponent<RectTransform>();
-                    var handleSprite = handleRectTrans.GetComponent<UnityEngine.UI.Image>();
+                    var handleSprite = handleRectTrans.GetComponent<Image>();
                     slider.handleRect = handleRectTrans;
                     handleSprite.sprite = sprite;
 

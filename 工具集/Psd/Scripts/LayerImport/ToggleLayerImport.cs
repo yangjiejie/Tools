@@ -30,11 +30,11 @@ namespace Psd
                 if (image != null)
                 {
                     string lowerName = image.name.ToLower();
-                    if (lowerName.Contains("_checkmark"))
+                    if (lowerName.Contains("checkmark"))
                     {
                         ctrl.DrawImage(image, toggle.gameObject, toggle.graphic.gameObject);
                     }
-                    else if (lowerName.Contains("_background"))
+                    else if (lowerName.Contains("background"))
                     {
                         ctrl.DrawImage(image, toggle.gameObject, toggle.targetGraphic.gameObject);
                     }

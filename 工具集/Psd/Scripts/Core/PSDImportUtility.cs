@@ -11,7 +11,7 @@ namespace Psd
     public static class PSDImportUtility
     {
         public static string baseFilename;
-        public static string baseDirectory;
+        //public static string baseDirectory;
         public static Canvas canvas;
         public static GameObject eventSys;
         public static readonly Dictionary<Transform, Transform> ParentDic = new Dictionary<Transform, Transform>();

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEditor;
-
+using UnityEngine.UI;
 namespace Psd
 {
     internal class InputFieldLayerImport : ILayerImport
@@ -15,8 +15,8 @@ namespace Psd
 
         public void DrawLayer(Layer layer, GameObject parent)
         {
-            UnityEngine.UI.InputField temp = AssetDatabase.LoadAssetAtPath(PSDImporterConst.ASSET_PATH_INPUTFIELD, typeof(UnityEngine.UI.InputField)) as UnityEngine.UI.InputField;
-            UnityEngine.UI.InputField inputfield = GameObject.Instantiate(temp) as UnityEngine.UI.InputField;
+            InputField temp = AssetDatabase.LoadAssetAtPath(PSDImporterConst.ASSET_PATH_INPUTFIELD, typeof(InputField)) as InputField;
+            InputField inputfield = GameObject.Instantiate(temp) as InputField;
             inputfield.transform.SetParent(parent.transform, false);//.parent = parent.transform;
             inputfield.name = layer.name;
 
@@ -30,9 +30,9 @@ namespace Psd
                     {
                         if (image.name.ToLower().Contains("text"))
                         {
-                            UnityEngine.UI.Text text = (UnityEngine.UI.Text)inputfield.textComponent;//inputfield.transform.Find("Text").GetComponent<UnityEngine.UI.Text>();
+                           Text text = (Text)inputfield.textComponent;//inputfield.transform.Find("Text").GetComponent<UnityEngine.UI.Text>();
                             Color color;
-                            if (UnityEngine.ColorUtility.TryParseHtmlString(("#" + image.arguments[0]), out color))
+                            if (ColorUtility.TryParseHtmlString(("#" + image.arguments[0]), out color))
                             {
                                 text.color = color;
                             }
@@ -45,9 +45,9 @@ namespace Psd
                         }
                         else if (image.name.ToLower().Contains("holder"))
                         {
-                            UnityEngine.UI.Text text = (UnityEngine.UI.Text)inputfield.placeholder;//.transform.Find("Placeholder").GetComponent<UnityEngine.UI.Text>();
+                           Text text = (Text)inputfield.placeholder;//.transform.Find("Placeholder").GetComponent<UnityEngine.UI.Text>();
                             Color color;
-                            if (UnityEngine.ColorUtility.TryParseHtmlString(("#" + image.arguments[0]), out color))
+                            if (ColorUtility.TryParseHtmlString(("#" + image.arguments[0]), out color))
                             {
                                 text.color = color;
                             }
@@ -65,7 +65,7 @@ namespace Psd
                         {
                             if (image.imageSource == ImageSource.Common || image.imageSource == ImageSource.Private)
                             {
-                                string assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
+                                string assetPath = pSDImportCtrl.GetFilePath(image);//  PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
                                 Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
                                 inputfield.image.sprite = sprite;
 

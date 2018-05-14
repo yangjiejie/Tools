@@ -50,7 +50,8 @@ namespace Psd
             //for (int i = 0; i < layer.images.Length; i++)
             //{
                 PSImage image = layer.image;
-                string assetPath = PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX; Debug.Log("==  CommonImagePath  ====" + assetPath);
+            string assetPath = PSDImportCtrl.Instance.GetFilePath(image);// PSDImportUtility.baseDirectory + image.name + PSDImporterConst.PNG_SUFFIX;
+                Debug.Log("==  CommonImagePath  ====" + assetPath);
                 Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
 
                 if (image.name.ToLower().Contains("background"))

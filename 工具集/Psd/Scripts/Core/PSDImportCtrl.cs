@@ -46,6 +46,7 @@ namespace Psd
             this.RecordScrFiles(xmlFilePath);//记录导入文件名及路径
             InitDataAndPath(xmlFilePath);//序列化
             InitCanvas();
+            //LoadLayers();
             MoveLayers();
             this.RecordSysFiles();
             InitDrawers();
@@ -182,7 +183,7 @@ namespace Psd
         {
             if (layers != null)
             {
-                for (var layerIndex = 0; layerIndex < layers.Length; layerIndex++)
+                for (int layerIndex = 0; layerIndex < layers.Length; layerIndex++)
                 {
                     DrawLayer(layers[layerIndex], parent);
                 }
@@ -234,7 +235,7 @@ namespace Psd
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() == false) { return; }
 #endif
             PSDImportUtility.baseFilename = Path.GetFileNameWithoutExtension(xmlFilePath);
-            PSDImportUtility.baseDirectory = "Assets/" + Path.GetDirectoryName(xmlFilePath.Remove(0, Application.dataPath.Length + 1)) + "/";
+          //  PSDImportUtility.baseDirectory = "Assets/" + Path.GetDirectoryName(xmlFilePath.Remove(0, Application.dataPath.Length + 1)) + "/";
         }
 
         private void InitCanvas()

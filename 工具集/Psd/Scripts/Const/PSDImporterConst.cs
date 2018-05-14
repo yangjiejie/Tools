@@ -34,7 +34,7 @@ namespace Psd
         public static string ASSET_PATH_HALFIMAGE = PSDUI_PATH + "HalfImage" + PSDUI_SUFFIX;
         public static string ASSET_PATH_SCROLLVIEW = PSDUI_PATH + "ScrollView" + PSDUI_SUFFIX;
         public static string ASSET_PATH_SLIDER = PSDUI_PATH + "Slider" + PSDUI_SUFFIX;
-        public static string ASSET_PATH_TEXT = PSDUI_PATH + "Text" + PSDUI_SUFFIX;
+        public static string ASSET_PATH_TEXT = PSDUI_PATH + "WText" + PSDUI_SUFFIX;
         public static string ASSET_PATH_SCROLLBAR = PSDUI_PATH + "Scrollbar" + PSDUI_SUFFIX;
         public static string ASSET_PATH_GROUP_V = PSDUI_PATH + "VerticalGroup" + PSDUI_SUFFIX;
         public static string ASSET_PATH_GROUP_H = PSDUI_PATH + "HorizontalGroup" + PSDUI_SUFFIX;

@@ -16,11 +16,7 @@ namespace Psd
         }
         public void DrawLayer(Layer layer, GameObject parent)
         {
-            //UnityEngine.UI.ScrollRect temp = AssetDatabase.LoadAssetAtPath(PSDImporterConst.PREFAB_PATH_SCROLLVIEW, typeof(UnityEngine.UI.ScrollRect)) as UnityEngine.UI.ScrollRect;
-            UnityEngine.UI.ScrollRect scrollRect = PSDImportUtility.LoadAndInstant<UnityEngine.UI.ScrollRect>(PSDImporterConst.ASSET_PATH_SCROLLVIEW, layer.name, parent);
-            //scrollRect.transform.SetParent(parent.transform, false); //parent = parent.transform;
-
-
+            ScrollRect scrollRect = PSDImportUtility.LoadAndInstant<ScrollRect>(PSDImporterConst.ASSET_PATH_SCROLLVIEW, layer.name, parent);
             RectTransform rectTransform = scrollRect.GetComponent<RectTransform>();
             rectTransform.sizeDelta = new Vector2(layer.size.width, layer.size.height);
             rectTransform.anchoredPosition = new Vector2(layer.position.x, layer.position.y);
@@ -31,13 +27,9 @@ namespace Psd
                 switch (type)
                 {
                     case "V":
-                        //scrollRect.vertical = true;
-                        //scrollRect.horizontal = false;
                         BuildVerticalScrollView(scrollRect, layer);
                         break;
                     case "H":
-                        //scrollRect.vertical = false;
-                        //scrollRect.horizontal = true;
                         BuildHorizonScrollView(scrollRect, layer);
                         break;
                     default:
@@ -53,7 +45,7 @@ namespace Psd
         /// </summary>
         /// <param name="scrollRect"></param>
         /// <param name="layer"></param>
-        public void BuildHorizonScrollView(UnityEngine.UI.ScrollRect scrollRect,Layer layer)
+        public void BuildHorizonScrollView(ScrollRect scrollRect,Layer layer)
         {
             scrollRect.vertical = false;
             scrollRect.horizontal = true;
@@ -70,7 +62,7 @@ namespace Psd
             var hLayout = scrollRect.content.gameObject.AddComponent<HorizontalLayoutGroup>();  //添加水平布局组件
             if (layer.arguments.Length < 4)
             {
-                Debug.LogWarning("ScrollView arguments error !");
+                Debug.LogError("ScrollView arguments error !");
             }
             else
             {
@@ -92,7 +84,7 @@ namespace Psd
         /// </summary>
         /// <param name="scrollRect"></param>
         /// <param name="layer"></param>
-        public void BuildVerticalScrollView(UnityEngine.UI.ScrollRect scrollRect, Layer layer)
+        public void BuildVerticalScrollView(ScrollRect scrollRect, Layer layer)
         {
             scrollRect.vertical = true;
             scrollRect.horizontal = false;
@@ -109,7 +101,7 @@ namespace Psd
             var vLayout = scrollRect.content.gameObject.AddComponent<VerticalLayoutGroup>();  //添加水平布局组件
             if (layer.arguments.Length < 4)
             {
-                Debug.LogWarning("ScrollView arguments error !");
+                Debug.LogError("ScrollView arguments error !");
             }
             else
             {

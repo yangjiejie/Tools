@@ -12,20 +12,15 @@ namespace Psd
     {
         public void DrawImage(PSImage image, GameObject parent, GameObject ownObj = null)
         {
-            UnityEngine.UI.Text myText;
+            Text myText;
             if (ownObj != null)
                 myText = PSDImportUtility.AddMissingComponent<Text>(ownObj);
             else
-                myText = PSDImportUtility.LoadAndInstant<UnityEngine.UI.Text>(PSDImporterConst.ASSET_PATH_TEXT, image.name, parent);
-
+                myText = PSDImportUtility.LoadAndInstant<Text>(PSDImporterConst.ASSET_PATH_TEXT, image.name, parent);
             RectTransform rectTransform = myText.GetComponent<RectTransform>();
             PSDImportUtility.SetAnchorMiddleCenter(rectTransform);
-            //UnityEngine.UI.Text myText = PSDImportUtility.LoadAndInstant<Text>(PSDImporterConst.ASSET_PATH_TEXT, image.name, parent);
-            //                        myText.color = image.arguments[0];
-            //                        myText.font = image.arguments[1];
-        Debug.Log("Label Color : " + image.arguments[0]);
+            Debug.Log("Label Color : " + image.arguments[0]);
             Debug.Log("fontSize : " + image.arguments[2]);
-
             Color color;
             if (ColorUtility.TryParseHtmlString(("#" + image.arguments[0]), out color))
             {
@@ -75,6 +70,7 @@ namespace Psd
 
             rectTransform.sizeDelta = new Vector2(image.size.width, image.size.height);
             rectTransform.anchoredPosition = new Vector2(image.position.x, image.position.y);
+            myText.gameObject.name = "Text";
         }
 
         /// <summary>
@@ -96,9 +92,9 @@ namespace Psd
                 Debug.LogWarning("ps exported justification is error !");
                 return defaut;
             }
-            Justification justi = (Justification)System.Enum.Parse(typeof(Justification), temp[1]);
+            Justification justi = (Justification)Enum.Parse(typeof(Justification), temp[1]);
             int index = (int)justi;
-            defaut = (TextAnchor)System.Enum.ToObject(typeof(TextAnchor), index);;
+            defaut = (TextAnchor)Enum.ToObject(typeof(TextAnchor), index);;
 
             return defaut;
         }
