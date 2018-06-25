@@ -12,3 +12,12 @@ F:\Git_Reposites\Tools\工具集\bin\ExcelConversion\Debug\ConnectMySQL.exe.conf
 F:\Git_Reposites\Tools\工具集\bin\ConnectMySQL\Debug\ConnectMySQL.exe.config
 F:\Git_Reposites\Tools\工具集\bin\ConnectMySQL\Debug\ConnectMySQL.exe
 F:\Git_Reposites\Tools\工具集\bin\ConnectMySQL\Debug\ConnectMySQL.pdb
+I:\Git_Reposite\Tools\工具集\bin\ConnectMySQL\Debug\ConnectMySQL.exe.config
+I:\Git_Reposite\Tools\工具集\ConnectMySQL\obj\Debug\ConnectMySQL.exe
+I:\Git_Reposite\Tools\工具集\ConnectMySQL\obj\Debug\ConnectMySQL.pdb
+I:\Git_Reposite\Tools\工具集\bin\ConnectMySQL\Debug\ConnectMySQL.exe
+I:\Git_Reposite\Tools\工具集\bin\ConnectMySQL\Debug\ConnectMySQL.pdb
+I:\Git_Reposite\Tools\工具集\ConnectMySQL\obj\Debug\ConnectMySQL.csprojResolveAssemblyReference.cache
+I:\Git_Reposite\Tools\工具集\ConnectMySQL\obj\Debug\ConnectMySQL.Form1.resources
+I:\Git_Reposite\Tools\工具集\ConnectMySQL\obj\Debug\ConnectMySQL.Properties.Resources.resources
+I:\Git_Reposite\Tools\工具集\ConnectMySQL\obj\Debug\ConnectMySQL.csproj.GenerateResource.Cache

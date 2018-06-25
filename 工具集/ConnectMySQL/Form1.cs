@@ -204,7 +204,7 @@ namespace ConnectMySQL
 
             cb = new MySqlCommandBuilder(da); // 此处必须有，否则无法更新
 
-
+            
 
             da.Fill(data);
             dataGrid.DataSource = data;
